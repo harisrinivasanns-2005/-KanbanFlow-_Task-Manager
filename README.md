@@ -1,9 +1,31 @@
-# 🗂️ KanbanFlow Task Manager (MERN Stack)
+# 🗂️ KanbanFlow — Task Manager (MERN)
+
+A simple, secure, and user-friendly Kanban-style task manager built with the MERN stack (MongoDB, Express, React, Node). KanbanFlow is designed to help users organize tasks into columns (To-Do, In-Progress, Completed), manage them with full CRUD operations, and authenticate securely using JWTs.
+
 
 KanbanFlow is a full-stack task management application inspired by tools like **Trello** and **Asana**.  
 It helps users organize, track, and manage tasks efficiently using a **Kanban-style workflow**, with secure authentication and full CRUD functionality.
 
-This project is developed as **Project 2 (Month 2)** of an internship program and follows a **documentation-driven, API-first development approach**.
+
+
+---
+
+## Table of Contents
+
+-[Purpose](#purpose)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started (Local Development)](#getting-started-local-development)
+  - [Prerequisites](#prerequisites)
+  - [Clone & Install](#clone--install)
+  - [Environment Variables](#environment-variables)
+  - [Run](#run)
+- [API Overview & Docs](#api-overview--docs)
+- [Usage](#usage)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
@@ -11,9 +33,9 @@ This project is developed as **Project 2 (Month 2)** of an internship program an
 
 The purpose of the KanbanFlow Task Manager is to provide a secure and user-friendly platform for managing tasks using a Kanban workflow, while demonstrating real-world **full-stack MERN application development** skills.
 
----
+----
 
-## 🚀 Features
+## Features
 
 ### 🔐 User Authentication
 - User Registration
@@ -34,107 +56,188 @@ The purpose of the KanbanFlow Task Manager is to provide a secure and user-frien
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-### Frontend
-- React.js
-- Axios
-- React Router
-- Context API (Global State Management)
-
-### Backend
-- Node.js
-- Express.js
-- MongoDB Atlas
-- Mongoose
-- bcrypt
-- jsonwebtoken (JWT)
-
-### Tools & Platforms
-- Postman (API testing)
-- Swagger (API documentation)
-- Concurrently
-- Render (Backend deployment)
-- Vercel (Frontend deployment)
-- Git & GitHub
+- Frontend
+  - React.js
+  - Axios
+  - React Router
+  - Context API (global state)
+- Backend
+  - Node.js
+  - Express.js
+  - MongoDB Atlas
+  - Mongoose
+  - bcrypt (password hashing)
+  - jsonwebtoken (JWT)
+- Tools
+  - Postman (API testing)
+  - Swagger (API docs)
+  - Concurrently (run client + server together)
+  - Git & GitHub
+- Deployment (examples)
+  - Backend: Render / Heroku / Railway
+  - Frontend: Vercel / Netlify
 
 ---
-Layer,Technology
-Frontend,"React.js, Axios, React Router, Context API"
-Backend,"Node.js, Express.js"
-Database,"MongoDB Atlas, Mongoose"
-Security,"Bcrypt (Hashing), JWT (Auth)"
-Dev Tools,"Postman, Swagger, Concurrently, Git"
-Deployment,"Render (Backend), Vercel (Frontend)"
 
-## 📁 Project Structure (Monorepo)
-
-kanbanflow-task-manager/
-├── backend/
-│   ├── config/         # Database connection (db.js)
-│   ├── controllers/    # Logic for Auth and Task routes
-│   ├── middleware/     # Auth middleware (JWT verification)
-│   ├── models/         # Mongoose Schemas (User, Task)
-│   ├── routes/         # API Endpoints
-│   └── server.js       # Entry point
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/ # Reusable UI components (Navbar, Board, Card)
-│   │   ├── context/    # Global State (AuthContext, TaskContext)
-│   │   ├── pages/      # Login, Register, Dashboard
-│   │   └── services/   # Axios API calls
-│   └── App.js
-└── package.json        # Root package for Concurrently scripts
+## Project Structure (monorepo)
 
 
-⚙️ Installation & Setup
-Clone the repository:
+| Path | Description |
+| --- | --- |
+| kanbanflow-task-manager/ | Root (monorepo) |
+| backend/ | Backend source code |
+| backend/config/ | Database connection (db.js) |
+| backend/controllers/ | Auth and Task controllers |
+| backend/middleware/ | Auth middleware (JWT verification) |
+| backend/models/ | Mongoose schemas (User, Task) |
+| backend/routes/ | API endpoints (auth, tasks) |
+| backend/server.js | Backend entry point |
+| frontend/ | Frontend source code |
+| frontend/public/ | Public static assets |
+| frontend/src/components/ | Reusable UI components (Navbar, Board, Card, Forms) |
+| frontend/src/context/ | AuthContext, TaskContext |
+| frontend/src/pages/ | Pages (Login, Register, Dashboard) |
+| frontend/src/services/ | Axios API calls and service wrappers |
+| frontend/src/App.js | React App entry component |
+| package.json | Root package scripts (Concurrently) |
 
-Bash
+---
 
-git clone https://github.com/your-username/kanbanflow.git
-cd kanbanflow
-Install dependencies for both Frontend and Backend:
+## Getting Started (Local Development)
 
-Bash
+### Prerequisites
 
-# Root directory
+- Node.js (v14+ recommended)
+- npm or yarn
+- MongoDB Atlas account (or local MongoDB)
+- (Optional) Postman for API testing
+
+### Clone & Install
+
+Clone the repository and install dependencies:
+
+```bash
+# clone
+git clone https://github.com/SanjanaSabat0263/KanbanFlow_TaskManager.git
+cd KanbanFlow_TaskManager
+
+# install root (concurrently)
 npm install
-# Backend directory
-cd backend && npm install
-# Frontend directory
-cd ../frontend && npm install
-Environment Variables: Create a .env file in the backend folder:
 
-Code snippet
+# backend
+cd backend
+npm install
 
+# frontend
+cd ../frontend
+npm install
+
+# go back to root
+cd ..
+```
+
+You can also use `yarn` in place of `npm` if preferred.
+
+### Environment Variables
+
+Create a `.env` file inside the `backend/` folder with the following variables:
+
+```
 PORT=5000
-MONGO_URI=your_mongodb_atlas_uri
-JWT_SECRET=your_secret_key
-Run the application: From the root directory, use concurrently to start both servers:
+MONGO_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_jwt_secret_here
+JWT_EXPIRES_IN=7d          # optional
+```
 
-Bash
+If you deploy, set the same variables in your hosting provider (Render, Heroku, etc.).
 
+### Run (Development)
+
+From the root directory, run both frontend and backend concurrently (if configured in root package.json):
+
+```bash
 npm run dev
-📝 API Documentation
-The API follows a RESTful structure. Detailed documentation can be found via:
+```
 
-Swagger: Accessible at /api-docs when the server is running.
+Alternatively, run each part separately:
 
-Postman: [Link to your Postman Collection if available]
+```bash
+# backend
+cd backend
+npm run dev      # or npm start
 
-🤝 Contributing
-Fork the Project
+# frontend
+cd ../frontend
+npm start
+```
 
-Create your Feature Branch (git checkout -b feature/AmazingFeature)
+By default:
+- Backend: http://localhost:5000 (or PORT in .env)
+- Frontend: http://localhost:3000
 
-Commit your Changes (git commit -m 'Add some AmazingFeature')
+---
 
-Push to the Branch (git push origin feature/AmazingFeature)
+## API Overview & Docs
 
-Open a Pull Request
+The API is RESTful and typically exposes routes like:
 
+- POST /api/auth/register — Register new user
+- POST /api/auth/login — Authenticate and receive JWT
+- GET /api/tasks — Get all tasks for authenticated user
+- POST /api/tasks — Create a new task (title, description, status, dueDate, etc.)
+- PUT /api/tasks/:id — Update a task
+- DELETE /api/tasks/:id — Delete a task
 
+Swagger UI is available (if enabled) at:
+- /api-docs  (visit this path when your backend server is running)
 
+Postman collection: Add a link or import the collection exported from your workspace.
 
+Example cURL (get tasks):
+
+```bash
+curl -H "Authorization: Bearer <TOKEN>" http://localhost:5000/api/tasks
+```
+
+---
+
+## Usage
+
+- Register a new user or log in.
+- Create tasks and assign statuses (To-Do, In-Progress, Completed).
+- Move tasks between columns to reflect progress.
+- Edit or delete tasks as needed.
+- All task data is scoped to the user who created it.
+
+---
+
+## Deployment
+
+- Backend: push code to a git remote and deploy to Render/Heroku/Railway. Ensure environment variables (MONGO_URI, JWT_SECRET) are set in the provider.
+- Frontend: build the React app (`npm run build`) and deploy to Vercel, Netlify, or serve statically from a host.
+- If deploying together, configure CORS on backend and set FRONTEND_URL environment variable(s) if necessary.
+
+---
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: git checkout -b feature/YourFeature
+3. Commit your changes: git commit -m "Add some feature"
+4. Push to your branch: git push origin feature/YourFeature
+5. Open a Pull Request describing your changes
+
+Please follow these guidelines:
+- Write clear, focused PR descriptions
+- Keep commits atomic and well-named
+- Add/update tests where appropriate
+
+You can also open issues for bugs or feature requests.
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details .
